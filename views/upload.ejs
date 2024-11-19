@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Certificate</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <h1>Upload Certificate</h1>
+
+    <!-- Check if an error exists, and if so, display it -->
+    <% if (error) { %>
+        <p style="color: red;">
+            <%= error %>
+        </p>
+        <% } %>
+
+            <!-- Upload Form -->
+            <form action="/upload" method="POST" enctype="multipart/form-data">
+                <input type="text" name="activityName" required>
+                <label for="certificate">Choose Certificate to Upload:</label>
+                <input type="file" name="certificate" required>
+                <button type="submit">Upload</button>
+            </form>
+</body>
+
+</html>
