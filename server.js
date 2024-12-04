@@ -129,6 +129,9 @@ app.get('/certificates/:id/download', async (req, res) => {
 app.get('/upload', (req, res) => {
     res.render('upload', { error: undefined });
 });
+app.get('/generate', (req, res) => {
+    res.render('generate', { error: undefined });
+});
 
 // Handle certificate upload
 app.post('/upload', upload.single('certificate'), async (req, res) => {
@@ -155,6 +158,32 @@ app.post('/upload', upload.single('certificate'), async (req, res) => {
         console.log(`${error}`)
         res.render('upload', { error: `Upload failed ${error}` });
     }
+});
+
+app.post('/generate', async (req, res) => {
+    const token = req.cookies.token;
+    if (!token) {
+        return res.redirect('/');
+    }
+
+    const requestData = {
+        certifiedText: 'Pelatihan GeoMAPS'
+    };
+    axios.post(`${API_URL}/certificates/generate`, requestData, {
+        headers: {
+            'Accept': '*/*',  // Accept any response type
+            'Authorization': `Bearer ${token}`,  // Add the token
+            'Content-Type': 'application/json'   // Specify JSON content
+        }
+    })
+        .then(response => {
+            console.log('Response:', response.data);  // Log the response data
+            res.redirect('/dashboard');
+        })
+        .catch(error => {
+            console.error('Error:', error.response ? error.response.data : error.message);
+            res.render('generate', { error: `Generate failed ${error}` });
+        });
 });
 
 // Start the server

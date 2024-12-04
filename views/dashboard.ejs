@@ -4,61 +4,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Certificates</title>
+    <title>My Certificates</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
-    <h1>My Certificates</h1>
+    <div class="container">
+        <% if (error) { %>
+            <p style="color: red;">
+                <%= error %>
+            </p>
+            <% } %>
 
-    <!-- Check if an error exists, and if so, display it -->
-    <% if (error) { %>
-        <p style="color: red;">
-            <%= error %>
-        </p>
-        <% } %>
-
-            <!-- Table of certificates -->
-            <table border="1">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Type</th>
-                        <th>Uploaded On</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% if (certificates && certificates.length> 0) { %>
-                        <% certificates.forEach(certificate=> { %>
-                            <tr>
-                                <td>
-                                    <%= certificate.id %>
-                                </td>
-                                <td>
-                                    <%= certificate.activity_name %>
-                                </td>
-                                <td>
-                                    <%= certificate.type %>
-                                </td>
-                                <td>
-                                    <%= new Date(certificate.uploaded_at).toLocaleDateString() %>
-                                </td>
-                                <td>
-                                    <a href="/certificates/<%= certificate.id %>/download">Download</a>
-                                </td>
-                            </tr>
-                            <% }) %>
-                                <% } else { %>
-                                    <tr>
-                                        <td colspan="5">No certificates available.</td>
-                                    </tr>
-                                    <% } %>
-                </tbody>
-            </table>
-
-            <a href="/upload">Upload a New Certificate</a>
+                <h1>My Certificates</h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Uploaded On</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (certificates && certificates.length> 0) { %>
+                            <% certificates.forEach(certificate=> { %>
+                                <tr>
+                                    <td>
+                                        <%= certificate.id %>
+                                    </td>
+                                    <td>
+                                        <%= certificate.activity_name %>
+                                    </td>
+                                    <td>
+                                        <%= certificate.type %>
+                                    </td>
+                                    <td>
+                                        <%= new Date(certificate.uploaded_at).toLocaleDateString() %>
+                                    </td>
+                                    <td>
+                                        <a href="/certificates/<%= certificate.id %>/download">Download</a>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                                    <% } else { %>
+                                        <tr>
+                                            <td colspan="5">No certificates available.</td>
+                                        </tr>
+                                        <% } %>
+                    </tbody>
+                </table>
+                <div class="actions">
+                    <a href="/generate" class="button generate">Generate Certificate</a>
+                </div>
+    </div>
 </body>
 
 </html>

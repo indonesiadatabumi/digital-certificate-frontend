@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Certificate</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <h1>Generate Certificate</h1>
+
+    <!-- Check if an error exists, and if so, display it -->
+    <% if (error) { %>
+        <p style="color: red;">
+            <%= error %>
+        </p>
+        <% } %>
+
+            <!-- Upload Form -->
+            <form action="/generate" method="POST" enctype="multipart/form-data">
+                <button type="submit">Generate</button>
+            </form>
+</body>
+
+</html>
